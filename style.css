@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0b0b;
+    color: white;
+    line-height: 1.6;
+}
+
+header {
+    background-color: black;
+    border-bottom: 2px solid gold;
+    padding: 20px 40px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: gold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: gold;
+}
+
+main {
+    padding: 30px 20px;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(to right, #111111, #1f1f1f);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: gold;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: gold;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+section {
+    max-width: 1000px;
+    margin: 0 auto 30px;
+    background-color: #161616;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 5px solid gold;
+}
+
+h2 {
+    color: gold;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th,
+table td {
+    border: 1px solid #333;
+    padding: 12px;
+    text-align: center;
+}
+
+table th {
+    background-color: gold;
+    color: black;
+}
+
+table tr:nth-child(even) {
+    background-color: #1f1f1f;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+    min-width: 220px;
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid gold;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
+}
+
+.card h3 {
+    color: gold;
+    margin-bottom: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid gold;
+    background-color: black;
+    margin-top: 30px;
+}
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.team-card {
+    background: #222;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 16px rgba(255, 215, 0, 0.25);
+}
+
+.tabla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+#actualizar-btn {
+    background-color: gold;
+    color: black;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#actualizar-btn:hover {
+    background-color: #ffd700;
+    transform: scale(1.05);
+}
+
+#ultima-actualizacion {
+    margin-bottom: 15px;
+    color: #ddd;
+    font-size: 14px;
+}
+
+.libertadores,
+.sudamericana,
+.descenso {
+    background-color: transparent;
+}
+
+.libertadores td,
+.sudamericana td,
+.descenso td {
+    color: white;
+}
+.enlace-card {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.enlace-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+}

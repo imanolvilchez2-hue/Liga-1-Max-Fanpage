@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina la camiseta</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .camiseta-box {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .camiseta-box img {
+            width: 260px;
+            max-width: 100%;
+            background: #111;
+            border: 2px solid gold;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .form-juego {
+            display: grid;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .form-juego input {
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #1b1b1b;
+            color: white;
+        }
+
+        .form-juego button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: gold;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .resultado-juego {
+            margin-top: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Liga 1 Max</div>
+            <ul class="nav-links">
+                <li><a href="trivia.html">Volver a Trivia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Adivina la camiseta</h2>
+            <p>Adivina la temporada, sponsor, jugadores, DT, una alta y una baja.</p>
+
+            <div class="card">
+                <h3>Camiseta misteriosa</h3>
+                <div class="camiseta-box">
+                    <img id="camiseta-img" alt="Camiseta misteriosa">
+                </div>
+                <button id="nueva-camiseta">Nueva camiseta</button>
+            </div>
+
+            <div class="card">
+                <h3>Responde</h3>
+                <div class="form-juego">
+                    <input type="text" id="temporada" placeholder="Temporada">
+                    <input type="text" id="sponsor" placeholder="Sponsor">
+                    <input type="text" id="jugador1" placeholder="Jugador de enero a junio">
+                    <input type="text" id="jugador2" placeholder="Jugador de julio a diciembre">
+                    <input type="text" id="arquero1" placeholder="Arquero 1">
+                    <input type="text" id="arquero2" placeholder="Arquero 2">
+                    <input type="text" id="dt" placeholder="Director tecnico">
+                    <input type="text" id="alta" placeholder="Una alta">
+                    <input type="text" id="baja" placeholder="Una baja">
+                    <button id="verificar">Verificar</button>
+                </div>
+
+                <p id="resultado" class="resultado-juego"></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const camisetas = [
+            {
+                club: "Universitario",
+                temporada: "2024",
+                sponsor: "Apuesta Total",
+                jugador1: "Alex Valera",
+                jugador2: "Edison Flores",
+                arquero1: "Sebastian Britos",
+                arquero2: "Diego Romero",
+                dt: "Fabian Bustos",
+                alta: "Sebastian Britos",
+                baja: "Piero Quispe",
+                svg: crearCamisetaSVG("#f5e6b3", "#7a1111", "U")
+            },
+            {
+                club: "Alianza Lima",
+                temporada: "2024",
+                sponsor: "Apuesta Total",
+                jugador1: "Hernan Barcos",
+                jugador2: "Kevin Serna",
+                arquero1: "Angelo Campos",
+                arquero2: "Franco Saravia",
+                dt: "Alejandro Restrepo",
+                alta: "Kevin Serna",
+                baja: "Gabriel Costa",
+                svg: crearCamisetaRayasSVG("#0b1d4d", "#ffffff", "AL")
+            },
+            {
+                club: "Sporting Cristal",
+                temporada: "2024",
+                sponsor: "Cristal",
+                jugador1: "Martin Cauteruccio",
+                jugador2: "Yoshimar Yotun",
+                arquero1: "Renato Solis",
+                arquero2: "Diego Enríquez",
+                dt: "Enderson Moreira",
+                alta: "Martin Cauteruccio",
+                baja: "Joao Grimaldo",
+                svg: crearCamisetaSVG("#6ec6ff", "#ffffff", "SC")
+            },
+            {
+                club: "Melgar",
+                temporada: "2024",
+                sponsor: "Caja Arequipa",
+                jugador1: "Bernardo Cuesta",
+                jugador2: "Cristian Bordacahar",
+                arquero1: "Carlos Caceda",
+                arquero2: "Patricio Alvarez",
+                dt: "Marco Valencia",
+                alta: "Tomas Martinez",
+                baja: "Alec Deneumostier",
+                svg: crearCamisetaMitadSVG("#111111", "#bb1111", "M")
+            }
+        ];
+
+        let camisetaActual = null;
+
+        function normalizar(texto) {
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+        }
+
+        function crearCamisetaSVG(colorBase, colorDetalle, letras) {
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240">
+                    <path d="M55 35 L85 15 L135 15 L165 35 L195 55 L175 90 L160 82 L160 220 L60 220 L60 82 L45 90 L25 55 Z"
+                          fill="${colorBase}" stroke="${colorDetalle}" stroke-width="6"/>
+                    <rect x="78" y="35" width="64" height="22" rx="8" fill="${colorDetalle}"/>
+                    <text x="110" y="140" text-anchor="middle" font-size="36" font-weight="bold" fill="${colorDetalle}" font-family="Arial">
+                        ${letras}
+                    </text>
+                </svg>
+            `;
+        }
+
+        function crearCamisetaRayasSVG(color1, color2, letras) {
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240">
+                    <defs>
+                        <clipPath id="shirt">
+                            <path d="M55 35 L85 15 L135 15 L165 35 L195 55 L175 90 L160 82 L160 220 L60 220 L60 82 L45 90 L25 55 Z"/>
+                        </clipPath>
+                    </defs>
+                    <path d="M55 35 L85 15 L135 15 L165 35 L195 55 L175 90 L160 82 L160 220 L60 220 L60 82 L45 90 L25 55 Z"
+                          fill="${color1}" stroke="#d4af37" stroke-width="5"/>
+                    <g clip-path="url(#shirt)">
+                        <rect x="0" y="0" width="18" height="240" fill="${color2}"/>
+                        <rect x="36" y="0" width="18" height="240" fill="${color2}"/>
+                        <rect x="72" y="0" width="18" height="240" fill="${color2}"/>
+                        <rect x="108" y="0" width="18" height="240" fill="${color2}"/>
+                        <rect x="144" y="0" width="18" height="240" fill="${color2}"/>
+                        <rect x="180" y="0" width="18" height="240" fill="${color2}"/>
+                    </g>
+                    <text x="110" y="145" text-anchor="middle" font-size="28" font-weight="bold" fill="#d4af37" font-family="Arial">
+                        ${letras}
+                    </text>
+                </svg>
+            `;
+        }
+
+        function crearCamisetaMitadSVG(colorIzq, colorDer, letras) {
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240">
+                    <defs>
+                        <clipPath id="shirt-half">
+                            <path d="M55 35 L85 15 L135 15 L165 35 L195 55 L175 90 L160 82 L160 220 L60 220 L60 82 L45 90 L25 55 Z"/>
+                        </clipPath>
+                    </defs>
+                    <path d="M55 35 L85 15 L135 15 L165 35 L195 55 L175 90 L160 82 L160 220 L60 220 L60 82 L45 90 L25 55 Z"
+                          fill="${colorIzq}" stroke="#d4af37" stroke-width="5"/>
+                    <g clip-path="url(#shirt-half)">
+                        <rect x="110" y="0" width="120" height="240" fill="${colorDer}"/>
+                    </g>
+                    <text x="110" y="145" text-anchor="middle" font-size="28" font-weight="bold" fill="#ffffff" font-family="Arial">
+                        ${letras}
+                    </text>
+                </svg>
+            `;
+        }
+
+        function cargarNuevaCamiseta() {
+            const indice = Math.floor(Math.random() * camisetas.length);
+            camisetaActual = camisetas[indice];
+
+            const img = document.getElementById("camiseta-img");
+            img.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(camisetaActual.svg);
+
+            document.getElementById("temporada").value = "";
+            document.getElementById("sponsor").value = "";
+            document.getElementById("jugador1").value = "";
+            document.getElementById("jugador2").value = "";
+            document.getElementById("arquero1").value = "";
+            document.getElementById("arquero2").value = "";
+            document.getElementById("dt").value = "";
+            document.getElementById("alta").value = "";
+            document.getElementById("baja").value = "";
+            document.getElementById("resultado").textContent = "";
+        }
+
+        function verificarRespuestas() {
+            let puntaje = 0;
+            const total = 9;
+
+            if (normalizar(document.getElementById("temporada").value) === normalizar(camisetaActual.temporada)) puntaje++;
+            if (normalizar(document.getElementById("sponsor").value) === normalizar(camisetaActual.sponsor)) puntaje++;
+            if (normalizar(document.getElementById("jugador1").value) === normalizar(camisetaActual.jugador1)) puntaje++;
+            if (normalizar(document.getElementById("jugador2").value) === normalizar(camisetaActual.jugador2)) puntaje++;
+            if (normalizar(document.getElementById("arquero1").value) === normalizar(camisetaActual.arquero1)) puntaje++;
+            if (normalizar(document.getElementById("arquero2").value) === normalizar(camisetaActual.arquero2)) puntaje++;
+            if (normalizar(document.getElementById("dt").value) === normalizar(camisetaActual.dt)) puntaje++;
+            if (normalizar(document.getElementById("alta").value) === normalizar(camisetaActual.alta)) puntaje++;
+            if (normalizar(document.getElementById("baja").value) === normalizar(camisetaActual.baja)) puntaje++;
+
+            document.getElementById("resultado").textContent =
+                "Puntaje: " + puntaje + " de " + total + " | Club: " + camisetaActual.club;
+        }
+
+        document.getElementById("nueva-camiseta").addEventListener("click", cargarNuevaCamiseta);
+        document.getElementById("verificar").addEventListener("click", verificarRespuestas);
+
+        cargarNuevaCamiseta();
+    </script>
+</body>
+</html>

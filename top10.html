@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el Top 10</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Liga 1 Max</div>
+            <ul class="nav-links">
+                <li><a href="trivia.html">Volver a Trivia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Adivina el Top 10</h2>
+            <p>Recibiras un reto de la Liga Peruana y deberas completar el top 10.</p>
+
+            <div class="card">
+                <h3>Reto actual</h3>
+                <p id="reto-top10"></p>
+                <button id="btn-nuevo-top10">Nuevo reto</button>
+            </div>
+
+            <div class="card">
+                <h3>Tu respuesta</h3>
+                <input type="text" id="respuesta-top10" placeholder="Escribe una respuesta">
+                <button id="btn-agregar">Agregar</button>
+                <p id="contador-top10">Respuestas ingresadas: 0</p>
+                <ul id="lista-respuestas"></ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const retosTop10 = [
+            "Nombra 10 clubes historicos del futbol peruano.",
+            "Nombra 10 goleadores peruanos recordados.",
+            "Nombra 10 jugadores historicos de Universitario.",
+            "Nombra 10 jugadores historicos de Alianza Lima.",
+            "Nombra 10 jugadores historicos de Sporting Cristal.",
+            "Nombra 10 campeones del futbol peruano.",
+            "Nombra 10 clubes de la Liga 1 actual.",
+            "Nombra 10 estadios del futbol peruano.",
+            "Nombra 10 entrenadores recordados del futbol peruano.",
+            "Nombra 10 futbolistas peruanos que jugaron en Europa.",
+            "Nombra 10 clubes tradicionales de provincia.",
+            "Nombra 10 arqueros historicos del futbol peruano.",
+            "Nombra 10 defensores peruanos recordados.",
+            "Nombra 10 mediocampistas historicos del Peru.",
+            "Nombra 10 delanteros historicos del Peru.",
+            "Nombra 10 capitanes historicos de clubes peruanos.",
+            "Nombra 10 futbolistas peruanos mundialistas.",
+            "Nombra 10 clubes que jugaron torneos internacionales.",
+            "Nombra 10 futbolistas peruanos que jugaron en Brasil.",
+            "Nombra 10 futbolistas peruanos que jugaron en Mexico.",
+            "Nombra 10 futbolistas peruanos que jugaron en Argentina.",
+            "Nombra 10 clubes recordados del ascenso peruano.",
+            "Nombra 10 jugadores identificados con Melgar.",
+            "Nombra 10 jugadores identificados con Cienciano.",
+            "Nombra 10 jugadores identificados con Sport Boys.",
+            "Nombra 10 futbolistas peruanos surgidos en clubes grandes.",
+            "Nombra 10 goleadores de la seleccion peruana.",
+            "Nombra 10 rivales historicos de clubes grandes del Peru.",
+            "Nombra 10 futbolistas peruanos que jugaron Copa Libertadores.",
+            "Nombra 10 clubes peruanos con mas historia en primera division.",
+            "Nombra 10 jugadores que hayan pasado por dos clubes grandes.",
+            "Nombra 10 jugadores extranjeros recordados en la Liga 1.",
+            "Nombra 10 tecnicos extranjeros recordados en el Peru.",
+            "Nombra 10 clubes del norte peruano.",
+            "Nombra 10 clubes del sur peruano.",
+            "Nombra 10 futbolistas peruanos recordados por su velocidad.",
+            "Nombra 10 jugadores creativos historicos del Peru.",
+            "Nombra 10 clubes con participacion internacional destacada.",
+            "Nombra 10 futbolistas peruanos de la ultima decada.",
+            "Nombra 10 promesas recientes del futbol peruano."
+        ];
+
+        const retoTop10 = document.getElementById("reto-top10");
+        const btnNuevoTop10 = document.getElementById("btn-nuevo-top10");
+        const respuestaTop10 = document.getElementById("respuesta-top10");
+        const btnAgregar = document.getElementById("btn-agregar");
+        const contadorTop10 = document.getElementById("contador-top10");
+        const listaRespuestas = document.getElementById("lista-respuestas");
+
+        let respuestasUsuario = [];
+
+        function nuevoReto() {
+            const indiceAleatorio = Math.floor(Math.random() * retosTop10.length);
+            retoTop10.textContent = retosTop10[indiceAleatorio];
+            respuestasUsuario = [];
+            listaRespuestas.innerHTML = "";
+            contadorTop10.textContent = "Respuestas ingresadas: 0";
+            respuestaTop10.value = "";
+        }
+
+        function agregarRespuesta() {
+            const respuesta = respuestaTop10.value.trim();
+
+            if (!respuesta) {
+                return;
+            }
+
+            if (respuestasUsuario.length >= 10) {
+                return;
+            }
+
+            respuestasUsuario.push(respuesta);
+
+            const item = document.createElement("li");
+            item.textContent = respuesta;
+            listaRespuestas.appendChild(item);
+
+            contadorTop10.textContent = "Respuestas ingresadas: " + respuestasUsuario.length;
+            respuestaTop10.value = "";
+            respuestaTop10.focus();
+        }
+
+        btnNuevoTop10.addEventListener("click", nuevoReto);
+        btnAgregar.addEventListener("click", agregarRespuesta);
+
+        respuestaTop10.addEventListener("keydown", function(evento) {
+            if (evento.key === "Enter") {
+                agregarRespuesta();
+            }
+        });
+
+        nuevoReto();
+    </script>
+</body>
+</html>

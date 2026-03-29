@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Liga 1 Max</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Volver al inicio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Adivina el club</h2>
+            <p>Recibiras una pista y tendras 3 intentos para adivinar el club.</p>
+
+            <div class="card">
+                <h3>Pista</h3>
+                <p id="pista-club"></p>
+            </div>
+
+            <div class="card">
+                <h3>Tu intento</h3>
+                <input type="text" id="respuesta-club" placeholder="Escribe el nombre del club">
+                <button id="btn-intentar">Intentar</button>
+                <button id="btn-nuevo">Nueva pista</button>
+                <p id="intentos-texto">Intentos restantes: 3</p>
+                <p id="mensaje-resultado"></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const clubes = [
+    {
+        nombre: "Universitario",
+        pista: "Alcanzo una final continental y es uno de los pocos clubes peruanos que puede presumir de haber llegado tan lejos."
+    },
+    {
+        nombre: "Alianza Lima",
+        pista: "Su historia esta marcada por una tragedia que cambio para siempre la memoria del futbol peruano."
+    },
+    {
+        nombre: "Sporting Cristal",
+        pista: "Su identidad moderna nacio muy ligada al mundo empresarial y tambien supo llegar a una final continental."
+    },
+    {
+        nombre: "Cienciano",
+        pista: "Es el unico club peruano que conquisto un torneo internacional oficial fuera de la capital."
+    },
+    {
+        nombre: "Melgar",
+        pista: "Es uno de los grandes representantes del sur y su identidad futbolera suele relacionarse con el rojinegro."
+    },
+    {
+        nombre: "Sport Boys",
+        pista: "Su camiseta historica usa un color poco comun y su arraigo esta muy unido al principal puerto del pais."
+    },
+    {
+        nombre: "Cusco FC",
+        pista: "Su presente tiene un nombre distinto al que uso cuando comenzo a hacerse notar en el futbol profesional."
+    },
+    {
+        nombre: "ADT",
+        pista: "Muchos lo nombran por siglas, aunque su origen institucional dice mucho mas que su nombre corto."
+    },
+    {
+        nombre: "Sport Huancayo",
+        pista: "Se hizo respetar desde la altura y construyo su prestigio lejos de la capital."
+    },
+    {
+        nombre: "Alianza Atletico",
+        pista: "Comparte una palabra con un gigante del pais, pero su tradicion pertenece claramente al norte."
+    },
+    {
+        nombre: "Deportivo Garcilaso",
+        pista: "Su nombre remite mas a la historia cultural del Peru que al lenguaje comun del futbol."
+    },
+    {
+        nombre: "Los Chankas",
+        pista: "Su identidad toma el nombre de un pueblo guerrero muy recordado en la historia andina."
+    },
+    {
+        nombre: "Atletico Grau",
+        pista: "Su nombre homenajea a una figura nacional que no pertenece originalmente al mundo del futbol."
+    },
+    {
+        nombre: "Comerciantes Unidos",
+        pista: "Su nombre suena mas a organizacion economica que a escuadra tradicional del balon pie."
+    },
+    {
+        nombre: "Juan Pablo II College",
+        pista: "Su denominacion mezcla una referencia religiosa universal con una palabra extranjera poco comun en el futbol peruano."
+    },
+    {
+        nombre: "UTC",
+        pista: "Su sigla es mucho mas famosa que su nombre completo, aunque ambos revelan un origen ligado a Cajamarca."
+    },
+    {
+        nombre: "FC Cajamarca",
+        pista: "Su nombre es tan directo que casi parece generico, pero comparte territorio con otra institucion mucho mas historica."
+    },
+    {
+        nombre: "Deportivo Moquegua",
+        pista: "Representa a una region poco habitual en la maxima categoria y usa una formula clasica en su nombre."
+    }
+];
+
+        
+
+        let clubActual = null;
+        let intentosRestantes = 3;
+
+        const pistaClub = document.getElementById("pista-club");
+        const respuestaClub = document.getElementById("respuesta-club");
+        const btnIntentar = document.getElementById("btn-intentar");
+        const btnNuevo = document.getElementById("btn-nuevo");
+        const intentosTexto = document.getElementById("intentos-texto");
+        const mensajeResultado = document.getElementById("mensaje-resultado");
+
+        function normalizarTexto(texto) {
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+        }
+
+        function nuevaPista() {
+            const indiceAleatorio = Math.floor(Math.random() * clubes.length);
+            clubActual = clubes[indiceAleatorio];
+            intentosRestantes = 3;
+
+            pistaClub.textContent = clubActual.pista;
+            intentosTexto.textContent = "Intentos restantes: 3";
+            mensajeResultado.textContent = "";
+            respuestaClub.value = "";
+            respuestaClub.disabled = false;
+            btnIntentar.disabled = false;
+        }
+
+        function verificarRespuesta() {
+            const respuestaUsuario = normalizarTexto(respuestaClub.value);
+            const respuestaCorrecta = normalizarTexto(clubActual.nombre);
+
+            if (!respuestaUsuario) {
+                mensajeResultado.textContent = "Escribe un club antes de intentar.";
+                return;
+            }
+
+            if (respuestaUsuario === respuestaCorrecta) {
+                mensajeResultado.textContent = "Correcto. Adivinaste el club.";
+                respuestaClub.disabled = true;
+                btnIntentar.disabled = true;
+                return;
+            }
+
+            intentosRestantes--;
+            intentosTexto.textContent = "Intentos restantes: " + intentosRestantes;
+
+            if (intentosRestantes > 0) {
+                mensajeResultado.textContent = "Incorrecto. Intenta otra vez.";
+            } else {
+                mensajeResultado.textContent = "Se acabaron los intentos. El club era: " + clubActual.nombre;
+                respuestaClub.disabled = true;
+                btnIntentar.disabled = true;
+            }
+
+            respuestaClub.value = "";
+            respuestaClub.focus();
+        }
+
+        btnIntentar.addEventListener("click", verificarRespuesta);
+        btnNuevo.addEventListener("click", nuevaPista);
+
+        respuestaClub.addEventListener("keydown", function(evento) {
+            if (evento.key === "Enter") {
+                verificarRespuesta();
+            }
+        });
+
+        nuevaPista();
+    </script>
+</body>
+</html>

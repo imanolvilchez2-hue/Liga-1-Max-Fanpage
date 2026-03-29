@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga Peruana</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Liga 1 Max</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#equipos">Equipos</a></li>
+                <li><a href="#tabla-general">Tabla General</a></li>
+                <li><a href="#torneo-apertura">Torneo Apertura</a></li>
+                <li><a href="#torneo-clausura">Torneo Clausura</a></li>
+                <li><a href="#historia-equipo">Historia del Equipo</a></li>
+                <li><a href="#minijuegos">Minijuegos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <h1>Liga 1 Peruana</h1>
+            <p>Todo sobre el futbol peruano en un solo lugar.</p>
+            <a href="#tabla-general" class="btn">Ver tabla</a>
+        </section>
+
+        <section id="equipos">
+            <h2>Equipos de la Liga 1 2026</h2>
+            <div class="teams-grid">
+                <div class="team-card">Universitario</div>
+                <div class="team-card">Cusco FC</div>
+                <div class="team-card">Alianza Lima</div>
+                <div class="team-card">Sporting Cristal</div>
+                <div class="team-card">Alianza Atletico</div>
+                <div class="team-card">Melgar</div>
+                <div class="team-card">Deportivo Garcilaso</div>
+                <div class="team-card">Cienciano</div>
+                <div class="team-card">Los Chankas</div>
+                <div class="team-card">ADT</div>
+                <div class="team-card">Sport Huancayo</div>
+                <div class="team-card">Atletico Grau</div>
+                <div class="team-card">Comerciantes Unidos</div>
+                <div class="team-card">Sport Boys</div>
+                <div class="team-card">Juan Pablo II College</div>
+                <div class="team-card">UTC</div>
+                <div class="team-card">FC Cajamarca</div>
+                <div class="team-card">Deportivo Moquegua</div>
+            </div>
+        </section>
+
+        <section id="tabla-general">
+            <div class="tabla-header">
+                <h2>Tabla General</h2>
+                <button id="actualizar-btn">Actualizar ahora</button>
+            </div>
+
+            <p id="ultima-actualizacion">Ultima actualizacion: cargando...</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Equipo</th>
+                        <th>PJ</th>
+                        <th>PG</th>
+                        <th>PE</th>
+                        <th>PP</th>
+                        <th>GF</th>
+                        <th>GC</th>
+                        <th>DG</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-body">
+                    <tr>
+                        <td colspan="10">Cargando tabla...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+       <section id="torneo-apertura" class="cards-section">
+    <h2>Torneo Apertura</h2>
+    <div class="cards">
+        <a href="jornadas.html" class="card enlace-card">
+            <h3>Jornadas</h3>
+            <p>Consulta las fechas restantes del Torneo Apertura.</p>
+        </a>
+
+        <a href="resultados.html" class="card enlace-card">
+            <h3>Resultados recientes</h3>
+            <p>Revisa los marcadores mas recientes.</p>
+        </a>
+
+        <a href="goleadores.html" class="card enlace-card">
+            <h3>Goleadores</h3>
+            <p>Mira quienes lideran la tabla de goleadores.</p>
+        </a>
+    </div>
+</section>
+
+
+        <section id="torneo-clausura" class="cards-section">
+    <h2>Torneo Clausura</h2>
+    <div class="cards">
+        <a href="jornadas-clausura.html" class="card enlace-card">
+            <h3>Jornadas</h3>
+            <p>Consulta las fechas del Torneo Clausura.</p>
+        </a>
+
+        <a href="resultados-clausura.html" class="card enlace-card">
+            <h3>Resultados</h3>
+            <p>Revisa los marcadores mas recientes del Clausura.</p>
+        </a>
+
+        <a href="goleadores-clausura.html" class="card enlace-card">
+            <h3>Goleadores</h3>
+            <p>Mira quienes lideran la tabla de goleadores del Clausura.</p>
+        </a>
+    </div>
+</section>
+
+        <section id="historia-equipo">
+            <section id="historia-equipo">
+    <h2>Historia del Club</h2>
+    <div class="teams-grid">
+        <a href="universitario.html" class="team-card enlace-card">Universitario</a>
+        <a href="cusco-fc.html" class="team-card enlace-card">Cusco FC</a>
+        <a href="alianza-lima.html" class="team-card enlace-card">Alianza Lima</a>
+        <a href="sporting-cristal.html" class="team-card enlace-card">Sporting Cristal</a>
+        <a href="alianza-atletico.html" class="team-card enlace-card">Alianza Atletico</a>
+        <a href="melgar.html" class="team-card enlace-card">Melgar</a>
+        <a href="deportivo-garcilaso.html" class="team-card enlace-card">Deportivo Garcilaso</a>
+        <a href="cienciano.html" class="team-card enlace-card">Cienciano</a>
+        <a href="los-chankas.html" class="team-card enlace-card">Los Chankas</a>
+        <a href="adt.html" class="team-card enlace-card">ADT</a>
+        <a href="sport-huancayo.html" class="team-card enlace-card">Sport Huancayo</a>
+        <a href="atletico-grau.html" class="team-card enlace-card">Atletico Grau</a>
+        <a href="comerciantes-unidos.html" class="team-card enlace-card">Comerciantes Unidos</a>
+        <a href="sport-boys.html" class="team-card enlace-card">Sport Boys</a>
+        <a href="juan-pablo-ii.html" class="team-card enlace-card">Juan Pablo II College</a>
+        <a href="utc.html" class="team-card enlace-card">UTC</a>
+        <a href="fc-cajamarca.html" class="team-card enlace-card">FC Cajamarca</a>
+        <a href="deportivo-moquegua.html" class="team-card enlace-card">Deportivo Moquegua</a>
+    </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
+<section id="minijuegos">
+   <section id="minijuegos">
+    <h2>Minijuegos</h2>
+    <div class="cards">
+        <a href="adivina-club.html" class="card enlace-card">
+            <h3>Adivina el club</h3>
+            <p>Recibe una pista y trata de acertar el club en 3 intentos.</p>
+        </a>
+
+        <a href="trivia.html" class="card enlace-card">
+            <h3>Trivia</h3>
+            <p>Juega distintos retos sobre la Liga Peruana.</p>
+        </a>
+    </div>
+</section>
+
+<footer>
+        <p>Pagina dedicada a la Liga 1 del Peru</p>
+    </footer>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el jugador</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Liga 1 Max</div>
+            <ul class="nav-links">
+                <li><a href="trivia.html">Volver a Trivia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Adivina el jugador</h2>
+            <p>Recibiras una pista y tendras 3 intentos para adivinar al jugador.</p>
+
+            <div class="card">
+                <h3>Pista</h3>
+                <p id="pista-jugador"></p>
+            </div>
+
+            <div class="card">
+                <h3>Tu intento</h3>
+                <input type="text" id="respuesta-jugador" placeholder="Escribe el nombre del jugador">
+                <button id="btn-intentar">Intentar</button>
+                <button id="btn-nuevo">Nueva pista</button>
+                <p id="intentos-texto">Intentos restantes: 3</p>
+                <p id="mensaje-resultado"></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const jugadores = [
+    { nombre: "Hernan Barcos", pista: "Delantero extranjero muy identificado con un grande de Lima y recordado por su experiencia internacional." },
+    { nombre: "Alex Valera", pista: "Atacante peruano que ha sido importante en uno de los clubes mas ganadores del pais." },
+    { nombre: "Carlos Garces", pista: "Delantero extranjero que ha destacado en altura y es conocido por su experiencia goleadora." },
+    { nombre: "Franco Torres", pista: "Futbolista ofensivo que ha llamado la atencion por su aporte en un club con nombre de origen prehispanico." },
+    { nombre: "Yoshimar Yotun", pista: "Mediocampista zurdo con larga trayectoria en seleccion y muy identificado con un club celeste." },
+    { nombre: "Horacio Calcaterra", pista: "Volante de gran tecnica que paso por un equipo celeste y luego llego a uno de los mas populares del pais." },
+    { nombre: "Christian Cueva", pista: "Jugador creativo, talentoso y constantemente ligado a la seleccion peruana." },
+    { nombre: "Paolo Guerrero", pista: "Delantero historico del futbol peruano con amplia carrera internacional y peso en la seleccion." },
+    { nombre: "Jefferson Farfan", pista: "Extremo historico peruano, muy veloz, muy identificado con un club intimo y con pasado en Europa." },
+    { nombre: "Claudio Pizarro", pista: "Uno de los delanteros peruanos mas exitosos en Europa, recordado especialmente en Alemania." },
+    { nombre: "Jose Carvallo", pista: "Arquero peruano de amplia trayectoria y muy asociado a uno de los equipos mas grandes del pais." },
+    { nombre: "Aldo Corzo", pista: "Defensor peruano, capitan en varias etapas y habitual en convocatorias de seleccion." },
+    { nombre: "Andy Polo", pista: "Extremo peruano veloz, con paso por el extranjero y protagonismo en un grande crema." },
+    { nombre: "Edison Flores", pista: "Volante ofensivo zurdo, muy querido por la hinchada peruana y por un club de camiseta crema." },
+    { nombre: "Piero Quispe", pista: "Mediocampista peruano de gran tecnica que se hizo notar en uno de los grandes del pais." },
+    { nombre: "Jairo Concha", pista: "Volante peruano que paso por un club intimo antes de vestir otra camiseta grande." },
+    { nombre: "Gabriel Costa", pista: "Atacante nacionalizado con recorrido en clubes grandes del Peru y presencia en el futbol chileno." },
+    { nombre: "Pablo Sabbag", pista: "Delantero extranjero recordado por una etapa reciente en un club de gran popularidad en Lima." },
+    { nombre: "Kevin Serna", pista: "Extremo desequilibrante que se gano rapidamente el reconocimiento de una gran hinchada." },
+    { nombre: "Adrian Ascues", pista: "Volante peruano joven con recorrido por clubes importantes y experiencia en el extranjero." },
+    { nombre: "Martin Perez Guedes", pista: "Mediocampista argentino con llegada al area, muy valorado en el futbol peruano reciente." },
+    { nombre: "Williams Riveros", pista: "Defensor paraguayo que se gano un lugar importante en una defensa de camiseta crema." },
+    { nombre: "Matias Di Benedetto", pista: "Zaguero argentino que formo parte de una defensa muy recordada en el futbol peruano reciente." },
+    { nombre: "Sebastian Britos", pista: "Arquero uruguayo que llego a un grande peruano para competir por el puesto en el arco." },
+    { nombre: "Diego Enriquez", pista: "Arquero joven peruano que empezo a ganar espacio en un club tradicional de Lima." },
+    { nombre: "Renato Solis", pista: "Arquero peruano muy ligado a una institucion celeste de la capital." },
+    { nombre: "Diego Romero", pista: "Arquero peruano joven asociado a una cantera de mucho peso en el futbol nacional." },
+    { nombre: "Leandro Sosa", pista: "Volante ofensivo extranjero muy relacionado con un club de Tarma." },
+    { nombre: "Janio Posito", pista: "Delantero peruano con trayectoria en varios clubes del torneo local y conocido en plazas de altura." },
+    { nombre: "Victor Cedron", pista: "Volante ofensivo peruano con pasado en clubes grandes y buena tecnica individual." },
+    { nombre: "Cristian Techera", pista: "Extremo uruguayo de baja estatura y mucha movilidad, conocido en el futbol sudamericano." },
+    { nombre: "Irven Avila", pista: "Delantero peruano de amplia trayectoria, muy identificado con un equipo celeste." },
+    { nombre: "Santiago Gonzalez", pista: "Atacante extranjero que destaco por su desequilibrio en un equipo celeste del Peru." },
+    { nombre: "Joao Grimaldo", pista: "Extremo peruano joven que se hizo conocido por su velocidad y atrevimiento." },
+    { nombre: "Martin Cauteruccio", pista: "Delantero uruguayo con recorrido internacional que llamo la atencion por su capacidad goleadora." },
+    { nombre: "Washington Corozo", pista: "Extremo ecuatoriano de mucha velocidad que paso por un club importante de Lima." },
+    { nombre: "Luis Urruti", pista: "Extremo uruguayo muy querido por una hinchada crema por su entrega y apariciones decisivas." },
+    { nombre: "Bernardo Cuesta", pista: "Delantero argentino historicamente ligado a un club rojinegro del sur peruano." },
+    { nombre: "Tomas Martinez", pista: "Volante argentino tecnico, con pasado en River y experiencia en el futbol peruano." },
+    { nombre: "Cristian Bordacahar", pista: "Atacante argentino muy relacionado con un club arequipeno de camiseta rojinegra." },
+    { nombre: "Kenji Cabrera", pista: "Joven futbolista peruano que fue ganando notoriedad en un equipo del sur." },
+    { nombre: "Alejandro Hohberg", pista: "Volante ofensivo peruano con recorrido por varios clubes importantes del pais." },
+    { nombre: "Carlos Compagnucci", pista: "Aunque es tecnico y no jugador, suele ser un nombre conocido por quienes siguen de cerca el futbol peruano." },
+    { nombre: "Didier La Torre", pista: "Extremo peruano joven con pasado en el extranjero y apariciones en la liga local." },
+    { nombre: "Beto da Silva", pista: "Delantero peruano de mucho talento que paso por clubes grandes y por el exterior." },
+    { nombre: "Christopher Olivares", pista: "Atacante peruano alto, formado fuera del pais y con presencia en el torneo local." },
+    { nombre: "Nilson Loyola", pista: "Lateral zurdo peruano con experiencia en provincia y en la seleccion." },
+    { nombre: "Miguel Araujo", pista: "Defensor central peruano con presencia en seleccion y experiencia internacional." },
+    { nombre: "Carlos Zambrano", pista: "Defensor peruano de caracter fuerte, larga trayectoria internacional y paso por un club intimo." },
+    { nombre: "Pedro Aquino", pista: "Volante de contencion peruano, muy valorado por su despliegue y experiencia fuera del pais." },
+    { nombre: "Luis Advincula", pista: "Lateral peruano famoso por su velocidad y por su amplia carrera internacional." }
+];
+
+        let jugadorActual = null;
+        let intentosRestantes = 3;
+
+        const pistaJugador = document.getElementById("pista-jugador");
+        const respuestaJugador = document.getElementById("respuesta-jugador");
+        const btnIntentar = document.getElementById("btn-intentar");
+        const btnNuevo = document.getElementById("btn-nuevo");
+        const intentosTexto = document.getElementById("intentos-texto");
+        const mensajeResultado = document.getElementById("mensaje-resultado");
+
+        function normalizarTexto(texto) {
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+        }
+
+        function nuevaPista() {
+            const indiceAleatorio = Math.floor(Math.random() * jugadores.length);
+            jugadorActual = jugadores[indiceAleatorio];
+            intentosRestantes = 3;
+
+            pistaJugador.textContent = jugadorActual.pista;
+            intentosTexto.textContent = "Intentos restantes: 3";
+            mensajeResultado.textContent = "";
+            respuestaJugador.value = "";
+            respuestaJugador.disabled = false;
+            btnIntentar.disabled = false;
+        }
+
+        function verificarRespuesta() {
+            const respuestaUsuario = normalizarTexto(respuestaJugador.value);
+            const respuestaCorrecta = normalizarTexto(jugadorActual.nombre);
+
+            if (!respuestaUsuario) {
+                mensajeResultado.textContent = "Escribe un nombre antes de intentar.";
+                return;
+            }
+
+            if (respuestaUsuario === respuestaCorrecta) {
+                mensajeResultado.textContent = "Correcto. Adivinaste al jugador.";
+                respuestaJugador.disabled = true;
+                btnIntentar.disabled = true;
+                return;
+            }
+
+            intentosRestantes--;
+            intentosTexto.textContent = "Intentos restantes: " + intentosRestantes;
+
+            if (intentosRestantes > 0) {
+                mensajeResultado.textContent = "Incorrecto. Intenta otra vez.";
+            } else {
+                mensajeResultado.textContent = "Se acabaron los intentos. El jugador era: " + jugadorActual.nombre;
+                respuestaJugador.disabled = true;
+                btnIntentar.disabled = true;
+            }
+
+            respuestaJugador.value = "";
+            respuestaJugador.focus();
+        }
+
+        btnIntentar.addEventListener("click", verificarRespuesta);
+        btnNuevo.addEventListener("click", nuevaPista);
+
+        respuestaJugador.addEventListener("keydown", function(evento) {
+            if (evento.key === "Enter") {
+                verificarRespuesta();
+            }
+        });
+
+        nuevaPista();
+    </script>
+</body>
+</html>
